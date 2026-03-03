@@ -192,10 +192,4 @@ age,salary,years_exp,dept,education,gender,performance_score,promoted
 41,104740,16,Engineering,Bachelor,Female,5.0,1
 57,96617,13,Finance,Bachelor,Male,2.2,1
 40,46896,14,Sales,Master,Male,4.6,0
-47,76175,0,Marketing,Bachelor,Male,3.5,0
-24,37805,2,Engineering,Bachelor,Female,4.7,0
-40,35237,15,Engineering,Bachelor,Female,3.7,0
-41,50056,10,Marketing,Bachelor,Female,4.0,0
-53,75543,11,Sales,PhD,Male,3.6,1
-28,86556,9,Engineering,Bachelor,Male,4.6,1
-54,33343,15,Engineering,Bachelor,Female,4.2,0
+
