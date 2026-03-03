@@ -9,7 +9,7 @@ import os
 
 # Load data
 print("Loading data...")
-df = pd.read_csv("employee_data.csv")
+df = pd.read_csv("data/employee_data.csv")
 
 # Encode categoricals
 le = LabelEncoder()
