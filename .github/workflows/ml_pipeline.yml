@@ -1,0 +1,60 @@
+name: ML Pipeline - 2022BCS0206
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  train-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-session-token: ${{ secrets.AWS_SESSION_TOKEN }}
+          aws-region: us-east-1
+
+      - name: DVC Pull
+        run: dvc pull
+
+      - name: Train model
+        run: python src/train.py
+
+      - name: Save metrics as artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: metrics-2022BCS0206
+          path: metrics.json
+
+      - name: Show metrics in GitHub Summary
+        run: |
+          echo "## 2022BCS0206 - ML Pipeline Results" >> $GITHUB_STEP_SUMMARY
+          echo '```json' >> $GITHUB_STEP_SUMMARY
+          cat metrics.json >> $GITHUB_STEP_SUMMARY
+          echo '```' >> $GITHUB_STEP_SUMMARY
+
+      - name: Login to Docker Hub
+        uses: docker/login-action@v2
+        with:
+          username: 2022bcs0206kishan
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Build Docker image
+        run: docker build -t 2022bcs0206kishan/aws_with_git:latest .
+
+      - name: Push Docker image
+        run: docker push 2022bcs0206kishan/aws_with_git:latest
