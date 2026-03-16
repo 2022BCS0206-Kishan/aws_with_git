@@ -19,17 +19,12 @@ X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_
 model = LinearRegression()
 model.fit(X_train, y_train)
 y_pred = model.predict(X_test)
-
 rmse = float(np.sqrt(mean_squared_error(y_test, y_pred)))
 r2 = float(r2_score(y_test, y_pred))
 
 @app.route("/")
 def home():
-    return jsonify({
-        "message": "California Housing Price Predictor",
-        "roll_no": "2022BCS0206",
-        "status": "running"
-    })
+    return jsonify({"message": "California Housing Price Predictor", "roll_no": "2022BCS0206", "status": "running"})
 
 @app.route("/health")
 def health():
@@ -37,12 +32,7 @@ def health():
 
 @app.route("/metrics")
 def metrics():
-    return jsonify({
-        "roll_no": "2022BCS0206",
-        "dataset_size": len(X_train),
-        "RMSE": round(rmse, 4),
-        "R2": round(r2, 4)
-    })
+    return jsonify({"roll_no": "2022BCS0206", "dataset_size": len(X_train), "RMSE": round(rmse, 4), "R2": round(r2, 4)})
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000)

@@ -6,7 +6,6 @@ from sklearn.metrics import mean_squared_error, r2_score
 import json
 
 df = pd.read_csv("data/housing.csv").dropna()
-
 X = pd.get_dummies(df.drop("median_house_value", axis=1))
 y = df["median_house_value"]
 
