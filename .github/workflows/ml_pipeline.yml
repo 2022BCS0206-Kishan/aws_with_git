@@ -35,7 +35,7 @@ jobs:
         run: python src/train.py
 
       - name: Save metrics as artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: metrics-2022BCS0206
           path: metrics.json
